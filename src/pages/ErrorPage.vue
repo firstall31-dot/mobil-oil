@@ -3,6 +3,7 @@ import { Home, RefreshCw, TriangleAlert } from 'lucide-vue-next'
 import { computed } from 'vue'
 import type { AppError, AppErrorKind } from '@/lib/errors'
 import { createNotFoundError } from '@/lib/errors'
+import { UiButton } from '@/components/ui'
 
 const props = withDefaults(defineProps<{ error?: AppError; kind?: AppErrorKind }>(), { kind: 'unexpected' })
 const emit = defineEmits<{ retry: []; home: [] }>()
@@ -28,8 +29,8 @@ const isNotFound = computed(() => displayError.value.kind === 'not-found')
         <h1 class="display-font mt-3 text-4xl font-bold tracking-[-0.07em] text-white sm:text-5xl">{{ displayError.title }}</h1>
         <p class="mx-auto mt-5 max-w-md text-sm leading-relaxed text-[#8E96A3]">{{ displayError.message }}</p>
         <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <button v-if="!isNotFound" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#F5A710] px-5 py-3 text-xs font-bold text-[#0B0D10] transition hover:bg-[#FFC233]" @click="emit('retry')"><RefreshCw :size="15" /> Try again</button>
-          <button class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 text-xs font-bold text-white transition hover:border-[#F5A710]/50 hover:text-[#F5A710]" @click="emit('home')"><Home :size="15" /> Back to home</button>
+          <UiButton v-if="!isNotFound" @click="emit('retry')"><RefreshCw :size="15" /> Try again</UiButton>
+          <UiButton variant="secondary" @click="emit('home')"><Home :size="15" /> Back to home</UiButton>
         </div>
         <p class="mt-8 text-[10px] uppercase tracking-[0.16em] text-[#68707D]">Your saved vehicle and bag remain untouched</p>
       </div>
