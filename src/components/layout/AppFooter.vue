@@ -92,13 +92,13 @@ function subscribe() {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 0 14px;
+  padding: 0 clamp(16px, 2.9vw, 42px) 14px;
   color: #f4f5f7;
 }
 
 .footer-contact-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(116px, 0.62fr) minmax(210px, 1fr);
+  grid-template-columns: minmax(0, 1.62fr) minmax(116px, 0.54fr) minmax(210px, 1fr);
   gap: 18px;
   margin-bottom: 24px;
 }
@@ -161,7 +161,7 @@ function subscribe() {
   background: #2c2c2c;
   padding: 30px 33px 27px;
 }
-.footer-panel-top { display: grid; grid-template-columns: minmax(330px, 1.45fr) minmax(350px, 1fr); gap: 55px; }
+.footer-panel-top { display: grid; grid-template-columns: minmax(0, 337px) minmax(180px, 195px); justify-content: space-between; gap: 48px; }
 .newsletter-block h2 { margin: 0 0 13px; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 0.015em; }
 .newsletter-form { display: flex; max-width: 337px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.54); }
 .newsletter-form input { min-width: 0; height: 29px; flex: 1; border: 0; outline: 0; background: transparent; color: white; font-size: 12px; }
@@ -184,7 +184,7 @@ function subscribe() {
 .legal-links a:hover { color: #c7c7c7; }
 
 @media (max-width: 700px) {
-  .footer-shell { padding: 0 0 10px; }
+  .footer-shell { padding: 0 16px 10px; }
   .footer-contact-grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
   .contact-card-phone { grid-column: 1 / -1; }
   .contact-card { min-height: 90px; padding: 13px 14px 12px; }
