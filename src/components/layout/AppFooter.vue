@@ -15,72 +15,72 @@ function subscribe() {
 <template>
   <footer class="footer-shell">
     <div class="footer-contact-grid">
-      <a href="tel:+78005008493" class="contact-card contact-card-phone">
-        <span class="contact-label">Единый телефон</span>
-        <strong>8 800 500 84 93</strong>
+      <a href="tel:+18005008493" class="contact-card contact-card-phone">
+        <span class="contact-label">Toll-free phone</span>
+        <strong>1 800 500 84 93</strong>
       </a>
 
       <div class="contact-card contact-card-social">
-        <span class="contact-label">Мессенджеры</span>
-        <div class="social-icons" aria-label="Мессенджеры">
+        <span class="contact-label">Messengers</span>
+        <div class="social-icons" aria-label="Messengers">
           <a href="https://wa.me" target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle :size="15" :stroke-width="2.8" /></a>
           <a href="https://vk.com" target="_blank" rel="noreferrer" aria-label="ВКонтакте" class="vk-icon">vk</a>
           <a href="https://t.me" target="_blank" rel="noreferrer" aria-label="Telegram"><Send :size="14" :stroke-width="2.8" /></a>
         </div>
       </div>
 
-      <a href="mailto:air@info.ru" class="contact-card contact-card-email">
-        <span class="contact-label">Почта</span>
-        <strong>air@info.ru</strong>
+      <a href="mailto:hello@torque.app" class="contact-card contact-card-email">
+        <span class="contact-label">Email</span>
+        <strong>hello@torque.app</strong>
       </a>
     </div>
 
     <div class="footer-panel">
       <div class="footer-panel-top">
         <div class="newsletter-block">
-          <h2>Подпишитесь на рассылку</h2>
+          <h2>Subscribe to our newsletter</h2>
           <form v-if="!subscribed" class="newsletter-form" @submit.prevent="subscribe">
-            <label class="sr-only" for="footer-email">Ваш E-mail</label>
-            <input id="footer-email" v-model="email" required type="email" placeholder="Ваш E-mail" />
+            <label class="sr-only" for="footer-email">Your email</label>
+            <input id="footer-email" v-model="email" required type="email" placeholder="Your email" />
             <button type="submit" aria-label="Подписаться"><ArrowRight :size="19" /></button>
           </form>
-          <p v-else class="subscribed-message">Спасибо! Вы подписаны.</p>
-          <label class="consent-row"><input type="checkbox" required /> <span>Я согласен с условиями передачи данных</span></label>
+          <p v-else class="subscribed-message">Thanks! You’re on the list.</p>
+          <label class="consent-row"><input type="checkbox" required /> <span>I agree to the data policy</span></label>
         </div>
 
         <div class="footer-links-grid">
           <div>
-            <p class="link-heading">О компании</p>
+            <p class="link-heading">About Torque</p>
             <nav>
-              <RouterLink to="/onboarding">Акции</RouterLink>
-              <RouterLink to="/shop">Отзывы</RouterLink>
-              <RouterLink to="/checkout">Доставка</RouterLink>
-              <RouterLink to="/search">Контакты</RouterLink>
+              <RouterLink to="/onboarding">Our story</RouterLink>
+              <RouterLink to="/shop">Reviews</RouterLink>
+              <RouterLink to="/checkout">Delivery</RouterLink>
+              <RouterLink to="/search">Contact us</RouterLink>
             </nav>
           </div>
           <div>
-            <p class="link-heading">Каталог масел</p>
+            <p class="link-heading">Oil catalog</p>
             <nav>
-              <RouterLink to="/shop">Синтетические</RouterLink>
-              <RouterLink to="/shop">Полусинтетические</RouterLink>
-              <RouterLink to="/shop">Минеральные</RouterLink>
+              <RouterLink to="/shop">Synthetic</RouterLink>
+              <RouterLink to="/shop">Semi-synthetic</RouterLink>
+              <RouterLink to="/shop">Mineral</RouterLink>
             </nav>
           </div>
           <div>
-            <RouterLink to="/profile" class="standalone-link">Партнёрам</RouterLink>
+            <RouterLink to="/profile" class="standalone-link">For partners</RouterLink>
           </div>
           <div>
-            <RouterLink to="/search" class="standalone-link">Помощь</RouterLink>
+            <RouterLink to="/search" class="standalone-link">Help center</RouterLink>
           </div>
         </div>
       </div>
 
       <div class="footer-panel-bottom">
-        <RouterLink to="/" class="footer-brand">AIRMOTORS</RouterLink>
+        <RouterLink to="/" class="footer-brand">TORQUE</RouterLink>
         <div class="legal-links">
-          <span>© Air Motors, 2021</span>
-          <a href="#">Политика конфиденциальности</a>
-          <a href="#">Партнёрское соглашение</a>
+          <span>© Torque, 2025</span>
+          <a href="#">Privacy policy</a>
+          <a href="#">Partner agreement</a>
         </div>
       </div>
     </div>
