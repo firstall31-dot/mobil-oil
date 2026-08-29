@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { Check, Heart, ShoppingCart, Star } from 'lucide-vue-next'
 import { computed } from 'vue'
-import { Check, Heart, Plus, Star } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 import type { Product } from '@/types/product'
-import { UiBadge, UiButton, UiCard } from '@/components/ui'
+import { UiCard } from '@/components/ui'
 
 const props = defineProps<{ product: Product }>()
 const cart = useCartStore()
@@ -23,24 +23,28 @@ function toggleSaved() {
 </script>
 
 <template>
-  <UiCard as="article" class="group relative min-w-0 overflow-hidden rounded-[22px] p-2 transition duration-300 hover:-translate-y-1 hover:border-white/[0.14] hover:bg-[#181c22]">
-    <div class="relative block aspect-[1.06] overflow-hidden rounded-[17px] bg-[#20252C]">
-      <RouterLink :to="`/product/${product.slug}`" class="absolute inset-0" :aria-label="`View ${product.name}`"><img :src="product.image" :alt="product.name" class="h-full w-full object-cover opacity-65 mix-blend-screen transition duration-500 group-hover:scale-105 group-hover:opacity-80" /></RouterLink>
-      <div class="absolute inset-0 bg-gradient-to-t from-[#14171C] via-transparent to-black/20"></div>
-      <div class="absolute left-3 top-3 flex gap-1.5">
-        <UiBadge v-if="product.isBestseller" tone="orange">Bestseller</UiBadge>
-        <UiBadge v-else-if="product.isNew" tone="cyan">New</UiBadge>
-      </div>
-      <button aria-label="Save product" :aria-pressed="saved" class="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-[#0B0D10]/55 text-white/70 backdrop-blur transition hover:bg-[#0B0D10]/80 hover:text-white" @click.stop="toggleSaved"><Heart :size="15" :fill="saved ? 'currentColor' : 'none'" /></button>
-      <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-        <div><p class="mb-1 text-[10px] font-bold uppercase tracking-[0.13em] text-white/60">{{ product.brand }}</p><p class="rounded-md bg-white/10 px-2 py-1 text-xs font-bold text-white backdrop-blur">{{ product.viscosity }}</p></div>
-        <div class="flex items-center gap-1 text-[11px] font-semibold text-white"><Star :size="12" fill="#F5A710" stroke="none" />{{ product.rating }}</div>
-      </div>
+  <UiCard as="article" class="product-card group relative min-w-0 overflow-hidden rounded-[10px] border-white/[0.04] bg-[#2C2C2C] p-0 shadow-none transition duration-300 hover:-translate-y-1 hover:border-white/[0.14] hover:bg-[#333333]">
+    <div class="product-visual relative aspect-[1.06] overflow-hidden bg-[#2C2C2C]">
+      <RouterLink :to="`/product/${product.slug}`" class="absolute inset-0 grid place-items-center" :aria-label="`View ${product.name}`"><img :src="product.image" :alt="product.name" class="h-full w-full object-cover opacity-75 grayscale-[0.15] mix-blend-screen transition duration-500 group-hover:scale-105 group-hover:opacity-90" /></RouterLink>
+      <span class="absolute left-3 top-3 text-[11px] font-medium uppercase tracking-[0.08em] text-white/25">Sale</span>
+      <button class="cart-button absolute right-2.5 top-2.5 grid h-8 w-12 place-items-center rounded-full bg-[#F5A710] text-[#0B0D10] transition hover:bg-[#FFC233]" :aria-label="`Add ${product.name} to cart`" @click.stop="addToCart"><Check v-if="quantity" :size="16" stroke-width="3" /><ShoppingCart v-else :size="16" stroke-width="2.8" /></button>
     </div>
-    <div class="px-2 pb-1 pt-4">
-      <div class="mb-1 flex items-start justify-between gap-2"><RouterLink :to="`/product/${product.slug}`" class="line-clamp-2 text-sm font-semibold leading-snug text-white hover:text-[#F5A710]">{{ product.name }}</RouterLink><span class="shrink-0 text-[10px] text-[#8E96A3]">{{ product.volume }}</span></div>
-      <p class="mb-4 text-[11px] text-[#8E96A3]">{{ product.base }} · {{ product.reviewCount }} reviews</p>
-      <div class="flex items-center justify-between"><p class="display-font text-lg font-bold tracking-tight text-white">${{ product.price.toFixed(2) }}</p><UiButton size="icon-sm" class="w-auto px-2.5" :aria-label="`Add ${product.name} to cart`" @click="addToCart"><Check v-if="quantity" :size="17" stroke-width="3" /><Plus v-else :size="18" stroke-width="2.5" /></UiButton></div>
+
+    <div class="product-info px-3 pb-3 pt-3">
+      <div class="min-h-[39px]">
+        <RouterLink :to="`/product/${product.slug}`" class="line-clamp-2 text-[12px] font-medium uppercase leading-[1.35] text-white transition hover:text-[#F5A710]">{{ product.brand }} {{ product.name }}</RouterLink>
+      </div>
+      <div class="mt-2 flex items-center gap-2 text-[10px]">
+        <span class="flex items-center gap-1 text-[#F5A710]"><Star :size="10" fill="currentColor" stroke-width="0" />{{ product.rating.toFixed(1) }}</span>
+        <span class="text-white/25">{{ product.reviewCount }} reviews</span>
+      </div>
+      <div class="mt-4 flex items-end justify-between gap-2">
+        <div class="flex flex-col leading-none">
+          <span v-if="product.originalPrice" class="mb-1 text-[11px] text-white/45 line-through">${{ product.originalPrice.toFixed(2) }}</span>
+          <span class="display-font text-[16px] font-medium text-white">${{ product.price.toFixed(2) }}</span>
+        </div>
+        <button class="favorite-button grid h-8 w-8 place-items-center rounded-full text-[#c49d45] transition hover:bg-[#F5A710]/10 hover:text-[#F5A710]" :aria-label="saved ? `Remove ${product.name} from wishlist` : `Save ${product.name}`" :aria-pressed="saved" @click.stop="toggleSaved"><Heart :size="25" :fill="saved ? 'currentColor' : 'none'" stroke-width="1.25" /></button>
+      </div>
     </div>
   </UiCard>
 </template>
