@@ -6,5 +6,8 @@ import { MotionPlugin } from '@vueuse/motion'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import { installGlobalErrorHandling } from './lib/errors'
 
-createApp(App).use(createPinia()).use(router).use(VueQueryPlugin).use(MotionPlugin).mount('#app')
+const app = createApp(App)
+installGlobalErrorHandling(app)
+app.use(createPinia()).use(router).use(VueQueryPlugin).use(MotionPlugin).mount('#app')
