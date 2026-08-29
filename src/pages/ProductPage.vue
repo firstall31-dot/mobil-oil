@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { ArrowLeft, Check, ChevronRight, Heart, Minus, Plus, ShieldCheck, Star, Truck } from 'lucide-vue-next'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { products } from '@/data/products'
 import { useCartStore } from '@/stores/cart'
 import { useVehicleStore } from '@/stores/vehicle'
 import { useWishlistStore } from '@/stores/wishlist'
+import ErrorPage from '@/pages/ErrorPage.vue'
 
 const route = useRoute()
+const router = useRouter()
 const cart = useCartStore()
 const vehicleStore = useVehicleStore()
 const wishlist = useWishlistStore()
@@ -62,6 +64,6 @@ function toggleSaved() {
       <details open class="group rounded-2xl border border-white/[0.08] bg-[#14171C] p-5"><summary class="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-white">What drivers say <ChevronRight :size="16" class="transition group-open:rotate-90" /></summary><div class="mt-5 space-y-5"><div v-for="review in product.reviews" :key="review.id" class="border-b border-white/[0.07] pb-5 last:border-0 last:pb-0"><div class="flex items-center justify-between"><div><p class="text-xs font-semibold text-white">{{ review.author }} <span v-if="review.verified" class="ml-1 text-[10px] font-medium text-[#58D5E6]">Verified</span></p><div class="mt-1 flex gap-0.5 text-[#F5A710]"><Star v-for="star in 5" :key="star" :size="11" :fill="star <= review.rating ? 'currentColor' : 'none'" /></div></div><time class="text-[10px] text-[#68707D]">{{ review.date }}</time></div><p class="mt-3 text-xs leading-relaxed text-[#A8AFBA]">{{ review.body }}</p></div></div></details>
     </div>
 
-    <div v-else class="py-24 text-center"><h1 class="display-font text-3xl font-bold text-white">Product not found.</h1><RouterLink to="/shop" class="mt-6 inline-flex rounded-xl bg-[#F5A710] px-5 py-3 text-xs font-bold text-[#0B0D10]">Back to shop</RouterLink></div>
+    <ErrorPage v-else kind="not-found" @home="router.push('/')" />
   </div>
 </template>

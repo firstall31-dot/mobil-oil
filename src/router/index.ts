@@ -8,6 +8,8 @@ import ProfilePage from '@/pages/ProfilePage.vue'
 import SearchPage from '@/pages/SearchPage.vue'
 import VehiclePage from '@/pages/VehiclePage.vue'
 import OnboardingPage from '@/pages/OnboardingPage.vue'
+import ErrorPage from '@/pages/ErrorPage.vue'
+import { reportError } from '@/lib/errors'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,8 +23,13 @@ const router = createRouter({
     { path: '/cart', name: 'cart', component: CartPage },
     { path: '/checkout', name: 'checkout', component: CheckoutPage },
     { path: '/profile', name: 'profile', component: ProfilePage },
-    { path: '/:pathMatch(.*)*', redirect: '/' },
+    { path: '/error', name: 'error', component: ErrorPage },
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: ErrorPage, props: { kind: 'not-found' } },
   ],
+})
+
+router.onError((error) => {
+  reportError(error, 'router navigation')
 })
 
 export default router

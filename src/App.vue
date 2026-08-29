@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { Bell, CarFront, Grid2X2, MapPin, Menu, Moon, Phone, Search, ShoppingBag, Sparkles, Sun, UserRound, X } from 'lucide-vue-next'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import ErrorBoundary from '@/components/layout/ErrorBoundary.vue'
 import PwaStatus from '@/components/layout/PwaStatus.vue'
 import { useCartStore } from '@/stores/cart'
 import { useUiStore } from '@/stores/ui'
@@ -23,6 +24,7 @@ const navItems = [
 </script>
 
 <template>
+  <ErrorBoundary>
   <div class="min-h-screen overflow-x-hidden bg-[#0B0D10] text-[#F4F5F7]">
     <a href="#app-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[#F5A710] focus:px-4 focus:py-3 focus:text-xs focus:font-bold focus:text-[#0B0D10]">Skip to content</a>
     <header class="sticky top-0 z-40 border-b border-white/[0.08] bg-[#0B0D10]/90 backdrop-blur-xl">
@@ -43,4 +45,5 @@ const navItems = [
 
     <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[#111419]/95 px-5 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl sm:hidden"><div class="mx-auto flex max-w-md items-center justify-around"><RouterLink to="/" class="flex flex-col items-center gap-1 text-[10px] text-[#8E96A3]" :class="{ 'text-[#F5A710]': route.name === 'home' }"><Sparkles :size="19" /><span>Discover</span></RouterLink><RouterLink to="/shop" class="flex flex-col items-center gap-1 text-[10px] text-[#8E96A3]" :class="{ 'text-[#F5A710]': route.name === 'shop' }"><Search :size="19" /><span>Shop</span></RouterLink><RouterLink to="/cart" class="relative flex flex-col items-center gap-1 text-[10px] text-[#8E96A3]" :class="{ 'text-[#F5A710]': route.name === 'cart' }"><ShoppingBag :size="19" /><span>Bag</span><span v-if="cartLabel" class="absolute -right-3 -top-2 grid h-4 min-w-4 place-items-center rounded-full bg-[#58D5E6] px-1 text-[9px] font-bold text-[#0B0D10]">{{ cartLabel }}</span></RouterLink><RouterLink to="/profile" class="flex flex-col items-center gap-1 text-[10px] text-[#8E96A3]" :class="{ 'text-[#F5A710]': route.name === 'profile' }"><CarFront :size="19" /><span>Garage</span></RouterLink></div></nav>
   </div>
+  </ErrorBoundary>
 </template>
